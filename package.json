@@ -1,0 +1,36 @@
+{
+  "name": "games-backend",
+  "version": "1.0.0",
+  "description": "generic games backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farhanasif/games-backend.git"
+  },
+  "keywords": [
+    "na"
+  ],
+  "author": "farhan asif",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "randomstring": "^1.1.5"
+  },
+  "bugs": {
+    "url": "https://github.com/farhanasif/games-backend/issues"
+  },
+  "homepage": "https://github.com/farhanasif/games-backend#readme"
+}
