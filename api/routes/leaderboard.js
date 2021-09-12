@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var randomstring = require("randomstring");
+const path = require('path');
+let ejs = require('ejs');
 
 const checkAuth = require('../middleware/check-auth');
 
@@ -35,13 +37,24 @@ router.get('/all-score', (req, res, next) => {
     })
 });
 
+// router.get('/', (req, res, next) => {
+    
+//     var sql = "SELECT * FROM leaderboard ORDER BY score DESC LIMIT 10";
+
+//     con.query(sql, function (err, result) {
+//         if (err) throw err;
+//         res.status(200).json(result);
+//     })
+// });
+
 router.get('/', (req, res, next) => {
     
-    var sql = "SELECT * FROM leaderboard ORDER BY score DESC LIMIT 10";
+    var sql = "SELECT leaderboard.*, users.full_name FROM leaderboard INNER JOIN users ON leaderboard.user_id = users.id ORDER BY score DESC LIMIT 10";
     
     con.query(sql, function (err, result) {
         if (err) throw err;
-        res.status(200).json(result);
+        console.log(result);
+        res.render("leaderboard.ejs", {leaders: result})
     })
 });
 

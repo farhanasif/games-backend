@@ -49,10 +49,13 @@ router.post('/signup', (req, res, next) => {
 
         phone = phone.length == 10 ? "+880"+ phone : null;
 
-        if (phone) {
+        const regx = /(\+88019)|(\+88014)/
+
+        console.log(regx.test(phone));
+
+        if (phone && regx.test(phone)) {
             
             console.log(phone);
-
             const query = "select phone from users where phone = '"+ phone +"'";
     
             con.query(query, (err, result) => {
@@ -66,7 +69,7 @@ router.post('/signup', (req, res, next) => {
                             })
                         } else {
                             //const verificationCode = randomstring.generate();
-                            const values = [user.fullName, phone, hash, user.game_id, 2];
+                            const values = [user.full_name, phone, hash, user.game_id, 2];
         
                             var sql = "INSERT INTO users (full_name, phone, password, game_id, role) VALUES (?)";
         
