@@ -37,15 +37,15 @@ router.get('/all-score', (req, res, next) => {
     })
 });
 
-// router.get('/', (req, res, next) => {
+router.get('/test-leaderboard-data', (req, res, next) => {
     
-//     var sql = "SELECT * FROM leaderboard ORDER BY score DESC LIMIT 10";
+    var sql = "SELECT users.full_name, leaderboard.* FROM leaderboard INNER JOIN users ON leaderboard.user_id = users.id WHERE score =(SELECT MAX(score) FROM leaderboard) GROUP BY user_id LIMIT 10";
 
-//     con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         res.status(200).json(result);
-//     })
-// });
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        res.status(200).json(result);
+    })
+});
 
 router.get('/', (req, res, next) => {
     
