@@ -37,15 +37,15 @@ router.get('/all-score', (req, res, next) => {
     })
 });
 
-// router.get('/', (req, res, next) => {
+router.get('/test-leaderboard-data', (req, res, next) => {
     
-//     var sql = "SELECT * FROM leaderboard ORDER BY score DESC LIMIT 10";
+    var sql = "SELECT users.full_name, leaderboard.* FROM leaderboard INNER JOIN users ON leaderboard.user_id = users.id WHERE score =(SELECT MAX(score) FROM leaderboard) GROUP BY user_id LIMIT 10";
 
-//     con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         res.status(200).json(result);
-//     })
-// });
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        res.status(200).json(result);
+    })
+});
 
 router.get('/', (req, res, next) => {
     
@@ -58,11 +58,15 @@ router.get('/', (req, res, next) => {
     })
 });
 
-router.post('/', (req, res, next) => {
+router.post('/:gameid/:userid/:score', (req, res, next) => {
+    
+    const gameid = req.params.gameid? req.params.gameid : 1;
+    const userid = req.params.userid? req.params.userid : null;
+    const score = req.params.score;
 
-    if (req.body.score > 100) {
+    if (score) {
 
-        const values = [req.body.game_id, req.body.user_id, req.body.score];
+        const values = [gameid, userid, score];
 
         var sql = "INSERT INTO leaderboard (game_id, user_id, score) VALUES (?)";
         
